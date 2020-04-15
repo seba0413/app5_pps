@@ -20,6 +20,7 @@ export class LoginPage implements OnInit {
   splash = true;
   correo: string;
   clave: string;
+  usuario: string;
   datosCorrectos = true;
   usuarios: Usuario[] = [
     { id: 0, nombre: 'admin', correo: 'admin@admin.com', clave: '111111' },
@@ -35,13 +36,14 @@ export class LoginPage implements OnInit {
   onChange( id ) {
     this.correo = this.usuarios[id].correo;
     this.clave = this.usuarios[id].clave;
+    this.usuario = this.usuarios[id].nombre;
   }
 
   onSubmitLogin() {
 
     this.authService.login(this.correo, this.clave)
     .then( respuesta => {
-      localStorage.setItem('chatUser', respuesta.user.email );
+      localStorage.setItem('chatUser', this.usuario );
       this.correo = '';
       this.clave = '';
       this.datosCorrectos = true;
