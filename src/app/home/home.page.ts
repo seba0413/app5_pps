@@ -37,6 +37,25 @@ export class HomePage implements OnInit {
     }).then( (modal) => modal.present());
   }
 
+  onlogout() {
+    this.authService.logout();
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones',
+      buttons: [{
+        text: 'Salir',
+        role: 'destructive',
+        icon: 'log-out',
+        handler: () => {
+          this.onlogout();
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
   ngOnInit() {
     this.chatsService.getChatRooms().subscribe( chats => {
       this.chatRooms = chats;
