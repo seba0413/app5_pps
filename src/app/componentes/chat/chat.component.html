@@ -7,13 +7,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding color="{{color}}">
 
   <div *ngIf="room">
     <ion-card  *ngFor="let mensaje of room.messages">
       <ion-card-content>
-        <div style="color: blue;" *ngIf = 'mensaje.user !== usuarioActual'> <h6> <b> {{ mensaje.user }} </b> </h6> </div>
-        <div> {{ mensaje.content }} </div>
+        <div style="color: blue;" *ngIf = 'mensaje.user !== usuarioActual'> <h6> <b> {{ mensaje.user }} {{mensaje.date}}</b> </h6> </div>
+        <div class='fecha-usuario-actual' *ngIf = 'mensaje.user === usuarioActual'> <h6> <b> {{mensaje.date}}</b> </h6> </div>
+        <div [ngClass]="{'texto-usuario-actual': mensaje.user == usuarioActual, 'texto': mensaje.user != usuarioActual}"> {{ mensaje.content }} </div>
       </ion-card-content>
     </ion-card>
   </div>
@@ -22,7 +23,7 @@
 
 <ion-footer padding>
   <ion-item>
-    <ion-textarea [(ngModel)]="msg"></ion-textarea>
+  <ion-textarea [(ngModel)]="msg" maxlength="21"></ion-textarea>
     <ion-button color="success" (click)="sendMessage()">
       <ion-icon name="send"></ion-icon>
     </ion-button>

@@ -29,7 +29,7 @@ export class ChatComponent implements OnInit {
 
     this.chatService.getChatRoom( this.chat.id).subscribe( room => {
       this.room = room;
-      console.log('room', room);
+      this.convertirTimeStampToDate( this.room );
     });
   }
 
@@ -48,5 +48,14 @@ export class ChatComponent implements OnInit {
 
     this.chatService.sendMsgToFirebase( mensaje, this.chat.id );
     this.msg = '';
+  }
+
+  convertirTimeStampToDate( room ) {
+    let fecha;
+    for (const message of room.messages ) {
+      fecha  = new Date(message.date.seconds * 1000).toISOString();
+      const fechaArray = fecha.split('T');
+      message.date = fechaArray[0];
+    }
   }
 }
