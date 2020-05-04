@@ -33,7 +33,8 @@ export class LoginPage implements OnInit {
   constructor(private authService: AuthService,
               private router: Router ) {}
 
-  onChange( id ) {
+  onChange( event ) {
+    const id = parseInt( event.detail.value, 10);
     this.correo = this.usuarios[id].correo;
     this.clave = this.usuarios[id].clave;
     this.usuario = this.usuarios[id].nombre;
